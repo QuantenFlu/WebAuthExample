@@ -1,0 +1,25 @@
+@page "/Account/Login"  
+  
+<div class="login-container">  
+    <div class="login-form-container">  
+        <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login" class="login-form">  
+            <DataAnnotationsValidator/> 
+            <h2>Login</h2>  
+            <hr/>            
+            <ValidationSummary class="text-danger" role="alert"/> 
+            <div class="form-floating mb-3">  
+                <InputText @bind-Value="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="example"/>  
+                <label for="username" class="form-label">Username</label>  
+                <ValidationMessage For="() => Input.Username" class="text-danger"/>  
+            </div>            
+            <div class="form-floating mb-3">  
+                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password"/>  
+                <label for="password" class="form-label">Password</label>  
+                <ValidationMessage For="() => Input.Password" class="text-danger"/>  
+            </div>           
+            <div>                
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>  
+            </div>        
+        </EditForm>  
+    </div>
+</div>
