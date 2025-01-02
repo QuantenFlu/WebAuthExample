@@ -10,17 +10,20 @@ internal static class DbInitializer
     {
         using var scope = serviceProvider.CreateScope();
         using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        using var userStore = scope.ServiceProvider.GetRequiredService<IUserStore<ApplicationUser>>();
-        using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        using var userStore = scope.ServiceProvider.GetRequiredService<IUserStore<CustomUser>>();
+        using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<CustomUser>>();
         
         // Ensure database is created
         if (context.Database.EnsureCreated())
         {
-            var user = Activator.CreateInstance<ApplicationUser>();
+            var user = Activator.CreateInstance<CustomUser>();
             
+            user.PreName = "Admin";
+            user.LastName = "Test";
+            user.UserRole = Role.Admin;
             await userStore.SetUserNameAsync(user, "Admin", CancellationToken.None);
-            var emailstore = (IUserEmailStore<ApplicationUser>)userStore;
-            await emailstore.SetEmailAsync(user, "admin@admin.com", CancellationToken.None);
+            //var emailstore = (IUserEmailStore<ApplicationUser>)userStore;
+            //await emailstore.SetEmailAsync(user, "admin@admin.com", CancellationToken.None);
             
             await userManager.CreateAsync(user, "Admin1234+");
         }

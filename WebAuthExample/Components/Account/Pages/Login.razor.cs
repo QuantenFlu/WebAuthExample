@@ -8,7 +8,7 @@ namespace WebAuthExample.Components.Account.Pages;
 public partial class Login : ComponentBase
 {
     public string? errorMessage { get; set; }
-    [Inject] private SignInManager<ApplicationUser> SignInManager {get; set;}
+    [Inject] private SignInManager<CustomUser> SignInManager {get; set;}
     [Inject] ILogger<Login> Logger  {get; set;}
     [Inject] IdentityRedirectManager RedirectManager {get; set;}
     [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
